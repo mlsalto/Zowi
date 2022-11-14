@@ -4,7 +4,7 @@
 
 #define PIN_PULS 12
 
-Button2 puls{PIN_PULS};
+Button2 puls;
 
 Servo sv_pi;
 Servo sv_pd;
@@ -14,6 +14,7 @@ Servo sv_rd;
 int vel = 0;
 
 void setup() {
+  puls.begin(PIN_PULS,INPUT_PULLUP,false);
   sv_ri.attach(10);
   sv_rd.attach(6);
   sv_pi.attach(9);
@@ -21,7 +22,7 @@ void setup() {
 
   // puls.setChangedHandler(changed);
   // puls.setPressedHandler(pressed);
-  puls.setReleasedHandler(onReleaseDelay); // Retrasa la entrada del ciclo
+ // puls.setReleasedHandler(onReleaseDelay); // Retrasa la entrada del ciclo
 
   // puls.setTapHandler(tap);
   puls.setClickHandler(piesPuntillas);
@@ -50,8 +51,8 @@ void piesPuntillas() {
 
 
 // pies puntillas
-  vel = 50;
-  sv_pi.write(vel+90);
+  vel = 65;
+  sv_pi.write(vel+55);
   sv_pd.write(vel);
   delay(600);
 
@@ -65,8 +66,8 @@ void piesPuntillas() {
 
 
 // vuelta abajo
-  vel = 130;
-  sv_pi.write(vel-90);
+  vel = 112;
+  sv_pi.write(vel-37);
   sv_pd.write(vel);
   delay(500);
 
@@ -85,10 +86,10 @@ void vueltaDerecha() {
   delay(500);
 
 // rodillas giran a izquierdas (hast ala mitad por ejemplo)
-  vel = 110;
+  vel = 100;
   sv_ri.write(vel);
   sv_rd.write(vel);
-  delay(600);
+  delay(500);
 
 // rodillas paran
   vel = 90;
@@ -97,10 +98,22 @@ void vueltaDerecha() {
   delay(500);
 
 // rodillas vuelven al sitio anterior
-  vel = 70;
+  vel = 80;
   sv_ri.write(vel);
   sv_rd.write(vel);
-  delay(600);
+  delay(500);
+
+// rodillas paran
+  vel = 90;
+  sv_ri.write(vel);
+  sv_rd.write(vel);
+  delay(500);
+
+  // rodillas giran a izquierdas (hast ala mitad por ejemplo)
+  vel = 100;
+  sv_ri.write(vel);
+  sv_rd.write(vel);
+  delay(250);
 
 // rodillas paran
   vel = 90;
