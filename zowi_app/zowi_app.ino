@@ -2,7 +2,7 @@
 #include <Button2.h>
 #include <Servo.h>
 
-#define PIN_PULS 12
+#define PIN_PULS 2
 
 Button2 puls;
 
@@ -26,11 +26,10 @@ void setup() {
 
   // puls.setTapHandler(tap);
   puls.setClickHandler(piesPuntillas);
-  // puls.setLongClickDetectedHandler(longClickDetected);
   puls.setLongClickHandler(vueltaDerecha);
   
-  // puls.setDoubleClickHandler(doubleClick);
-  // puls.setTripleClickHandler(tripleClick);
+  puls.setDoubleClickHandler(levantarPiernaD);
+  puls.setTripleClickHandler(levantarPiernaI);
 }
 
 void loop() {
@@ -61,9 +60,6 @@ void piesPuntillas() {
   sv_pi.write(vel);
   sv_pd.write(vel);
   delay(500);
-
-// descanso
-
 
 // vuelta abajo
   vel = 112;
@@ -120,4 +116,62 @@ void vueltaDerecha() {
   sv_ri.write(vel);
   sv_rd.write(vel);
   delay(500);
+}
+
+void levantarPiernaD(){
+  vel = 90;
+  sv_pi.write(vel);
+  sv_pd.write(vel);
+  delay(500);
+
+  // levanta pie
+  vel = 100;
+  sv_pi.write(vel-30);
+  sv_pd.write(vel-3);
+  delay(600);
+
+  vel = 90;
+  sv_pi.write(vel);
+  sv_pd.write(vel);
+  delay(1500);
+
+  vel = 80;
+  sv_pi.write(vel+30);
+  sv_pd.write(vel);
+  delay(600);
+
+  vel = 90;
+  sv_pi.write(vel);
+  sv_pd.write(vel);
+  delay(500);
+}
+
+void levantarPiernaI(){
+  vel = 90;
+  sv_pi.write(vel);
+  sv_pd.write(vel);
+  delay(500);
+
+  // levanta pie
+   vel = 85;
+  sv_pi.write(vel);
+  sv_pd.write(vel);
+  delay(600);
+
+  vel = 90;
+  sv_pi.write(vel);
+  sv_pd.write(vel);
+  delay(1500);
+
+  // baja el pie
+  vel = 100;
+  sv_pi.write(vel);
+  sv_pd.write(vel);
+  delay(600);
+
+  vel = 90;
+  sv_pi.write(vel);
+  sv_pd.write(vel);
+  delay(500);
+
 }
